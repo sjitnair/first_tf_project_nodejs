@@ -6,6 +6,14 @@ pipeline {
         TF_IN_AUTOMATION   = "true"
     }
 
+    parameters {
+        choice(
+            name: 'ACTION',
+            choices: ['apply', 'destroy'],
+            description: 'Terraform action'
+        )
+    }
+
     stages {
 
         stage('Checkout') {
