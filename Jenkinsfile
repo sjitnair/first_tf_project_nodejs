@@ -47,11 +47,11 @@ pipeline {
             }
         }
 
-        stage('Terraform Apply') {
+        stage('Terraform Apply / Destroy') {
             steps {
-                input message: "Approve Terraform Apply?"
+                input message: "Approve Terraform Apply or Destroy?"
                 sh '''
-                terraform apply -auto-approve tfplan
+                terraform ${ACTION} -auto-approve tfplan
                 '''
             }
         }
