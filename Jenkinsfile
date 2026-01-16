@@ -49,10 +49,16 @@ pipeline {
 
         stage('Terraform Apply / Destroy') {
             steps {
-                input message: "Approve Terraform Apply or Destroy?"
-                sh '''
-                terraform ${ACTION} -auto-approve tfplan
-                '''
+                script {
+                    // Use ACTION variable here
+                    if (ACTION == 'apply') {
+                        sh 'terraform apply -auto-approve tfplan'
+                    } else if (ACTION == 'destroy') {
+                        sh 'terraform destroy -auto-approve'
+                    } else {
+                        error "Invalid ACTION: ${ACTION}"
+                    }
+                }
             }
         }
     }
